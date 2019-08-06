@@ -124,3 +124,6 @@ dmypy.json
 
 # Mac OS
 .DS_Store
+
+# This project
+data/output/
