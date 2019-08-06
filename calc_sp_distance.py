@@ -125,15 +125,19 @@ if __name__ == '__main__':
         for j, target in map_data.iterrows():
             if i < j:
                 # Obtain route lenght from graph
-                route_lenght = get_scattermap_lines(
-                    source = map_data.iloc[i,:],
-                    target = map_data.iloc[j,:],
-                    margin = 1000)
-                route_lenghts[i,j] = route_lenght
+                try:
+                    route_lenght = get_scattermap_lines(
+                        source = map_data.iloc[i,:],
+                        target = map_data.iloc[j,:],
+                        margin = 1000)
+                    route_lenghts[i,j] = route_lenght
+                except:
+                    route_lenghts[i,j] = -99999
+
+                if i*j % 100 == 0:
+                    np.savetxt('data/output/route_lenghts.csv', route_lenghts, delimiter=',')
             else:
                 pass
-
-    np.savetxt('output/route_lenghts.csv', route_lenghts, delimiter=',')
 
 
 # Sample code for using mapbox and google APIs
